@@ -1,4 +1,5 @@
 require "discordrb"
+require 'discordrb/webhooks'
 require "dotenv"
 require "json"
 require_relative "api/riot"
@@ -12,17 +13,27 @@ bot.command(:get_info, min_args: 2, max_args: 2, description: "Shows base inform
   begin
     riot     = RiotApi.new(riot_api_key)
     response = riot.get_summoner_data(summoner_name, region.downcase)
-    data = JSON.parse(response, {symbolize_names: true})
-    pp data
-    icon = data[:profileIconId]
+    data     = JSON.parse(response, {symbolize_names: true})
+    icon     = data[:profileIconId]
+    name     = data[:name]
+    level    = data[:summonerLevel]
+    summoner_data = "Name: #{name}\nLevel: #{level}"
+
     event.channel.send_embed do |embed|
-      embed.image = Discordrb::Webhooks::EmbedImage.new(url: "http://ddragon.leagueoflegends.com/cdn/12.10.1/img/profileicon/#{icon}.png")
+      embed.title = "```Samira```"
+
+      embed.image = Discordrb::Webhooks::EmbedImage.new(url: "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Samira_0.jpg")
+      embed.thumbnail = Discordrb::Webhooks::EmbedThumbnail.new(url: "https://raw.githubusercontent.com/RiotAPI/Riot-Games-API-Developer-Assets/master/champion-mastery-icons/mastery-7.png")
+
+      embed.add_field(name: "Spen time", value: "> 41.7 hours", inline: true)
+      embed.add_field(name: "Mastery points", value: "> 412323", inline: true)
+      embed.add_field(name: "Mastery level", value: "> 7", inline: true)
     end
 
+    response
   rescue => error
-    puts error
     response = JSON.parse(error, {:symbolize_names => true})
-    response.status.message
+    response[:status][:message]
   end
 end
 
