@@ -13,3 +13,7 @@ gem 'rest-client', '~> 2.1'
 
 # For debugging
 gem 'pry', '~> 0.14.1'
+
+
+# Converting links to universal mode
+gem 'uri', '~> 0.11.0'

@@ -36,6 +36,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8.2)
+    uri (0.11.0)
     websocket (1.2.9)
     websocket-client-simple (0.3.1)
       event_emitter
@@ -49,6 +50,7 @@ DEPENDENCIES
   dotenv (~> 2.7, >= 2.7.6)
   pry (~> 0.14.1)
   rest-client (~> 2.1)
+  uri (~> 0.11.0)
 
 BUNDLED WITH
    2.3.11
